@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ITI.DAL/ITI.DAL.csproj" />
+  <Project Path="ITIExaminationSystemMVC/ITIExaminationSystemMVC.csproj" />
+</Solution>
