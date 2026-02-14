@@ -1,0 +1,97 @@
+@model ITIExaminationSystemMVC.Models.CreateStudentViewModel
+
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<div class="container animate-fade-in" style="max-width: 800px; margin-top: 3rem;">
+    <div class="card">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                <h3 class="fw-bold text-primary mb-0">Add New Student</h3>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
+            </div>
+
+            <form asp-action="AddStudent" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="row g-3">
+                    <!-- Account Details -->
+                    <div class="col-12">
+                        <h5 class="text-muted mb-3"><i class="bi bi-shield-lock me-2"></i>Account Sections</h5>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label fw-semibold">Email Address</label>
+                        <input asp-for="Email" class="form-control" placeholder="student@example.com" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Password" class="form-label fw-semibold">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    
+                    <!-- Personal Details -->
+                    <div class="col-12 mt-4">
+                        <h5 class="text-muted mb-3"><i class="bi bi-person-lines-fill me-2"></i>Personal Details</h5>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label asp-for="Name" class="form-label fw-semibold">Full Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="John Doe" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Address" class="form-label fw-semibold">Address</label>
+                        <input asp-for="Address" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Phone" class="form-label fw-semibold">Phone Number</label>
+                        <input asp-for="Phone" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Degree" class="form-label fw-semibold">Degree</label>
+                        <input asp-for="Degree" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="BranchId" class="form-label fw-semibold">Branch</label>
+                        <select asp-for="BranchId" class="form-select" 
+                                asp-items="@(new SelectList(ViewBag.Branches, "Id", "Name"))">
+                            <option value="">-- Select Branch --</option>
+                        </select>
+                        <span asp-validation-for="BranchId" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="TrackId" class="form-label fw-semibold">Track</label>
+                        <select asp-for="TrackId" class="form-select" 
+                                asp-items="@(new SelectList(ViewBag.Tracks, "Id", "Name"))">
+                            <option value="">-- Select Track --</option>
+                        </select>
+                    </div>
+
+                     <div class="col-md-6">
+                        <label asp-for="GraduationDate" class="form-label fw-semibold">Graduation Date</label>
+                        <input asp-for="GraduationDate" class="form-control" type="date" />
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-5">
+                    <button type="submit" class="btn btn-premium btn-lg">Create Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,48 @@
+@model ITIExaminationSystemMVC.Models.AssignStudentToCourseViewModel
+
+@{
+    ViewData["Title"] = "Assign Student to Course";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <div class="card shadow-sm animate-fade-in">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Assign Student to Course</h3>
+        </div>
+        <div class="card-body p-4">
+            <p class="text-muted">Select a student from your branch and assign them to one of your courses.</p>
+
+            <form asp-action="AssignStudentToCourse" method="post">
+                <input type="hidden" asp-for="InstructorId" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Select Course</label>
+                    <select asp-for="SelectedCourseId" class="form-select" required>
+                        <option value="">-- Choose a Course --</option>
+                        @foreach (var course in Model.AvailableCourses)
+                        {
+                            <option value="@course.Id">@course.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Select Student</label>
+                    <select asp-for="SelectedStudentId" class="form-select" required>
+                        <option value="">-- Choose a Student --</option>
+                        @foreach (var student in Model.AvailableStudents)
+                        {
+                            <option value="@student.Id">@student.Name (ID: @student.Id)</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-success">Assign Student</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

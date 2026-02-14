@@ -1,0 +1,64 @@
+@model ITI.DAL.Entities.DomainEntities.Student
+
+@{
+    ViewData["Title"] = "Student Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1>Welcome, @Model?.Name</h1>
+    
+    @if (TempData["ExamResult"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            <strong>Exam Completed!</strong> @TempData["ExamResult"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            Available Exams
+        </div>
+        <div class="card-body">
+            @if (ViewBag.Exams != null)
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Total Degree</th>
+                            <th>Duration</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Exams)
+                        {
+                            <tr>
+                                <td>@item.CourseName</td>
+                                <td>@item.Exam.TotDegree</td>
+                                <td>@item.Exam.Duration mins</td>
+                                <td>
+                                    <a asp-action="TakeExam" asp-route-id="@item.Exam.Id" class="btn btn-success">Take Exam</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No exams available at this moment.</p>
+            }
+        </div>
+    </div>
+</div>

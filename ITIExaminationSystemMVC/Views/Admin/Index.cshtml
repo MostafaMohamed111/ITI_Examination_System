@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<div class="dashboard-container animate-fade-in">
+    <!-- Header -->
+    <div class="dashboard-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1>Hello, @ViewBag.AdminName!</h1>
+                <p>Welcome to your admin dashboard.</p>
+            </div>
+            <div>
+                <a asp-action="CreateInstructor" class="btn btn-light text-primary fw-bold px-4 py-2 rounded-pill shadow-sm">
+                    <i class="bi bi-person-plus-fill me-2"></i>Add Instructor
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Instructors Card -->
+        <div class="card">
+            <h5 class="card-title">Instructors <span class="badge bg-primary rounded-pill float-end">@ViewBag.InstructorCount</span></h5>
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-circle bg-primary bg-opacity-10 p-3 me-3 text-primary">
+                    <i class="bi bi-person-badge fs-3"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted">Total Instructors</h6>
+                    <span class="fw-bold fs-4">@ViewBag.InstructorCount</span>
+                </div>
+            </div>
+            <div class="d-grid">
+                <a asp-action="Instructors" class="btn btn-outline-primary">Manage Instructors</a>
+            </div>
+        </div>
+
+        <!-- Students Card -->
+        <div class="card">
+            <h5 class="card-title">Students <span class="badge bg-success rounded-pill float-end">@ViewBag.StudentCount</span></h5>
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-circle bg-success bg-opacity-10 p-3 me-3 text-success">
+                    <i class="bi bi-people fs-3"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted">Total Students</h6>
+                    <span class="fw-bold fs-4">@ViewBag.StudentCount</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses Card -->
+        <div class="card">
+            <h5 class="card-title">Courses <span class="badge bg-info rounded-pill float-end">@ViewBag.CourseCount</span></h5>
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-circle bg-info bg-opacity-10 p-3 me-3 text-info">
+                    <i class="bi bi-book fs-3"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted">Active Courses</h6>
+                    <span class="fw-bold fs-4">@ViewBag.CourseCount</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Branches Card -->
+        <div class="card">
+            <h5 class="card-title">Branches <span class="badge bg-warning rounded-pill float-end">@ViewBag.BranchCount</span></h5>
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-circle bg-warning bg-opacity-10 p-3 me-3 text-warning">
+                    <i class="bi bi-geo-alt-fill fs-3"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted">Total Branches</h6>
+                    <span class="fw-bold fs-4">@ViewBag.BranchCount</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

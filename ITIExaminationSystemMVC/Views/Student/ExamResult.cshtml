@@ -1,0 +1,101 @@
+@model ITIExaminationSystemMVC.Models.ExamResultViewModel
+
+@{
+    ViewData["Title"] = "Exam Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg">
+        <div class="card-header @(Model.Passed ? "bg-success" : "bg-danger") text-white text-center py-4">
+            <h2 class="mb-0">@Model.CourseName - Exam Results</h2>
+        </div>
+        <div class="card-body p-4">
+            <!-- Score Summary -->
+            <div class="row text-center mb-4">
+                <div class="col-md-3">
+                    <div class="p-3 border rounded">
+                        <h5 class="text-muted mb-2">Your Score</h5>
+                        <h3 class="fw-bold text-primary">@Model.TotalScore / @Model.MaxScore</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 border rounded">
+                        <h5 class="text-muted mb-2">Percentage</h5>
+                        <h3 class="fw-bold text-info">@Model.Percentage%</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 border rounded">
+                        <h5 class="text-muted mb-2">Passing Score</h5>
+                        <h3 class="fw-bold text-warning">@Model.PassingScore</h3>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 border rounded">
+                        <h5 class="text-muted mb-2">Status</h5>
+                        <h3 class="fw-bold @(Model.Passed ? "text-success" : "text-danger")">
+                            @(Model.Passed ? "PASSED ✓" : "FAILED ✗")
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <!-- Question by Question Breakdown -->
+            <h4 class="mb-4">Question Breakdown</h4>
+            
+            @foreach (var qResult in Model.QuestionResults)
+            {
+                <div class="card mb-3 @(qResult.IsCorrect ? "border-success" : "border-danger")">
+                    <div class="card-header @(qResult.IsCorrect ? "bg-success bg-opacity-10" : "bg-danger bg-opacity-10")">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="mb-0">
+                                <span class="badge @(qResult.IsCorrect ? "bg-success" : "bg-danger") me-2">
+                                    Q@(qResult.QuestionNumber)
+                                </span>
+                                @qResult.QuestionBody
+                            </h6>
+                            <span class="badge bg-secondary">@qResult.Mark Mark(s)</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Your Answer:</strong></p>
+                                <p class="@(qResult.IsCorrect ? "text-success" : "text-danger") fw-semibold">
+                                    @(string.IsNullOrEmpty(qResult.StudentAnswer) ? "(No answer provided)" : qResult.StudentAnswer)
+                                    @if (qResult.IsCorrect)
+                                    {
+                                        <i class="bi bi-check-circle-fill ms-2"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-x-circle-fill ms-2"></i>
+                                    }
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="mb-1"><strong>Correct Answer:</strong></p>
+                                <p class="text-success fw-semibold">@qResult.CorrectAnswer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="d-grid gap-2 mt-4">
+                <a asp-action="Index" class="btn btn-primary btn-lg">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-opacity-10 {
+        --bs-bg-opacity: 0.1;
+    }
+</style>
