@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "Assign Course";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Assign Course to @ViewBag.InstructorName</h2>
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="AssignCourse" method="post">
+                <input type="hidden" name="instructorId" value="@ViewBag.InstructorId" />
+                
+                <div class="mb-3">
+                    <label class="form-label">Select Course</label>
+                    <select name="courseId" class="form-select" required>
+                        <option value="">-- Select Course --</option>
+                        @foreach (var course in ViewBag.Courses)
+                        {
+                            <option value="@course.Id">@course.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Assign</button>
+                    <a asp-action="Instructors" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

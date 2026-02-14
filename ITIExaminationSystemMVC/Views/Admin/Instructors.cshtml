@@ -1,0 +1,57 @@
+@model IEnumerable<ITI.DAL.Entities.DomainEntities.Instructor>
+
+@{
+    ViewData["Title"] = "Manage Instructors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Manage Instructors</h1>
+        <a asp-action="CreateInstructor" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add New Instructor</a>
+    </div>
+
+    <form asp-action="Instructors" method="get" class="mb-4">
+        <div class="row g-3">
+            <div class="col-auto">
+                <input type="text" name="searchString" class="form-control" placeholder="Search by Name..." value="@Context.Request.Query["searchString"]">
+            </div>
+            <div class="col-auto">
+                <input type="text" name="searchDegree" class="form-control" placeholder="Search by Degree..." value="@Context.Request.Query["searchDegree"]">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Degree</th>
+                    <th>Phone</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Degree</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Salary</td>
+                        <td>
+                            <a asp-action="AssignCourse" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white">Assign Course</a>
+                            <a asp-action="EditInstructor" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-action="DeleteInstructor" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

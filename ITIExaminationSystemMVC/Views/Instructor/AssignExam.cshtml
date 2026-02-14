@@ -1,0 +1,62 @@
+@model ITI.DAL.Entities.DomainEntities.Exam
+
+@{
+    ViewData["Title"] = "Assign Exam";
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<div class="container animate-fade-in" style="max-width: 600px; margin-top: 3rem;">
+    <div class="card">
+        <div class="card-body p-4">
+            <h3 class="fw-bold text-primary mb-3">Assign Exam</h3>
+            <p class="text-muted mb-4">Create a new exam for <span class="fw-bold text-dark">@ViewBag.CourseName</span></p>
+
+            <form asp-action="AssignExam" method="post">
+                <input type="hidden" name="courseId" value="@Model.CourseId" />
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="countMCQ" class="form-label fw-semibold">Number of MCQ Questions</label>
+                        <input name="countMCQ" id="countMCQ" class="form-control" type="number" min="0" value="12" required />
+                        <small class="text-muted">Multiple Choice Questions</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="countTF" class="form-label fw-semibold">Number of True/False Questions</label>
+                        <input name="countTF" id="countTF" class="form-control" type="number" min="0" value="12" required />
+                        <small class="text-muted">True or False Questions</small>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="duration" class="form-label fw-semibold">Duration (Minutes)</label>
+                    <input name="duration" id="duration" class="form-control" type="number" min="10" value="60" />
+                    <small class="text-muted">Optional: Exam time limit</small>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="totDegree" class="form-label fw-semibold">Total Degree</label>
+                        <input name="totDegree" id="totDegree" class="form-control" type="number" min="0" value="100" />
+                        <small class="text-muted">Optional: Maximum score</small>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="minDegree" class="form-label fw-semibold">Passing Degree</label>
+                        <input name="minDegree" id="minDegree" class="form-control" type="number" min="0" value="50" />
+                        <small class="text-muted">Optional: Minimum to pass</small>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-premium">Assign Exam</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

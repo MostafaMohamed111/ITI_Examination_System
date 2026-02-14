@@ -1,0 +1,50 @@
+@model ITIExaminationSystemMVC.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Ensure layout is used if available, or set to null if specific layout needed
+}
+
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="text-center mb-4">
+                <h2 class="text-primary fw-bold">Welcome Back</h2>
+                <p class="text-muted">Sign in to your account</p>
+            </div>
+            
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label text-secondary fw-semibold">Email Address</label>
+                    <input asp-for="Email" class="form-control" placeholder="name@example.com" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label text-secondary fw-semibold">Password</label>
+                    <input asp-for="Password" class="form-control" placeholder="••••••••" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" asp-for="RememberMe" />
+                    <label class="form-check-label text-secondary" asp-for="RememberMe">
+                        @Html.DisplayNameFor(m => m.RememberMe)
+                    </label>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-premium w-100">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
